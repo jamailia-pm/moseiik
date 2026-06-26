@@ -19,12 +19,16 @@ jobs:
       - name: Fetch project
         run: |
           git clone https://github.com/jamailia-pm/moseiik.git
+          cd moseiik
+
+      - name: Fetch images
+        run: |
+          curl -O https://nasext-vaader.insa-rennes.fr/ietr-vaader/moseiik_test_images.zip
+          unzip moseiik_test_images.zip
+          mv -r images tests/tiles
 
       - name: Run tests
         run: |
-          pwd
-          cd moseiik
-          pwd
           docker build -t localtest .
           docker run localtest
 
@@ -43,6 +47,12 @@ jobs:
       - name: Download project
         run: |
           git clone https://github.com/jamailia-pm/moseiik.git
+
+      - name: Fetch images
+        run: |
+          curl -O https://nasext-vaader.insa-rennes.fr/ietr-vaader/moseiik_test_images.zip
+          unzip moseiik_test_images.zip
+          mv -r images tests/tiles          
 
       - name: Run tests
         run: |
