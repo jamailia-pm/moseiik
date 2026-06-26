@@ -416,7 +416,7 @@ mod tests {
     fn unit_test_aarch64() {
         println!("Test unitaire l1_neon avec la même image");
         // TODO
-        let image1 = imageReader::open("assets/kit.jpeg")
+        let image1 = ImageReader::open("assets/kit.jpeg")
         .unwrap()
         .decode()
         .unwrap()
