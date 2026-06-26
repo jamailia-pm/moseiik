@@ -22,7 +22,9 @@ jobs:
 
       - name: Run tests
         run: |
+          pwd
           cd moseiik
+          pwd
           docker build -t localtest .
           docker run localtest
 
