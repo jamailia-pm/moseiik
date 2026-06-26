@@ -26,7 +26,9 @@ mod tests {
         let output_file = opts.output.clone();
         compute_mosaic(opts);
 
+        println!("reference");
         let reference : RgbImage = ImageReader::open("tests/reference/ground-truth-kit.png".to_string()).unwrap().decode().unwrap().into_rgb8();
+        println!("output {:?}", output_file);
         let output : RgbImage = ImageReader::open(&output_file).unwrap().decode().unwrap().into_rgb8();
 
         //verify step by step, first presence, then format, then content
@@ -86,7 +88,9 @@ mod tests {
         let output_file = opts.output.clone();
         compute_mosaic(opts);
 
+        println!("reference");
         let reference : RgbImage = ImageReader::open("tests/reference/ground-truth-kit.png".to_string()).unwrap().decode().unwrap().into_rgb8();
+        println!("output {:?}", output_file);
         let output : RgbImage = ImageReader::open(&output_file).unwrap().decode().unwrap().into_rgb8();
 
         //verify step by step, first presence, then format, then content
