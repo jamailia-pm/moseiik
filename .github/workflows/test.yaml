@@ -1,52 +1,48 @@
 name: moseiik robustness guaranty
+
 on:
-  push
+  push:
 
 jobs:
   test-x86:
-    runs-on:  ubuntu-latest
+    runs-on: ubuntu-latest
+
     steps:
-      - name: Checking architecture
-        uses: actions/checkout@master
-        run : |
-          ARCH=$(uname -m)
-          echo "Architecture: $ARCH"
-          
-          if [ "$ARCH" != "x86_64" ]; then
-          echo "Error: This job only supports x86_64"
-          exit 1
-          fi            
+      - uses: actions/checkout@v4
 
-      - name: Fetching project
-        run: git clone https://github.com/jamailia-pm/moseiik.git
-
-      - name: Running tests
+      - name: Check architecture
         run: |
-          sudo docker build -t localtest .
-          sudo docker run localtest
+          ARCH=$(uname -m)
+          echo "$ARCH"
+          [ "$ARCH" = "x86_64" ]
 
+      - name: Fetch project
+        run: |
+          git clone https://github.com/jamailia-pm/moseiik.git
 
+      - name: Run tests
+        run: |
+          cd moseiik
+          docker build -t localtest .
+          docker run localtest
 
-test-arm:
-  runs-on: ubuntu-24.04-arm
-  steps:
-    - name: Checking architecture
-      uses: actions/checkout@master
-      run: |
-        ARCH=$(uname -m)
-        echo "Architecture: $ARCH"
-        
-        if [ "$ARCH" != "arm" ]; then
-        echo "Error: This job only supports arm"
-        exit 1
-        fi
+  test-arm:
+    runs-on: ubuntu-24.04-arm
 
+    steps:
+      - uses: actions/checkout@v4
 
-    - name: Download image bank
-      run: |
-        dir
-        git clone https://github.com/jamailia-pm/sobel_morpho.git
-        dir
+      - name: Check architecture
+        run: |
+          ARCH=$(uname -m)
+          echo "$ARCH"
+          [ "$ARCH" = "aarch64" ]
 
-    - name: Running tests
-      run: cargo test --release
+      - name: Download project
+        run: |
+          git clone https://github.com/jamailia-pm/sobel_morpho.git
+
+      - name: Run tests
+        run: |
+          cd sobel_morpho
+          cargo test --release
