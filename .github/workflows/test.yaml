@@ -25,7 +25,7 @@ jobs:
         run: |
           curl -O https://nasext-vaader.insa-rennes.fr/ietr-vaader/moseiik_test_images.zip
           unzip moseiik_test_images.zip
-          mv -r images tests/tiles
+          mv images tests/tiles
 
       - name: Run tests
         run: |
@@ -52,7 +52,7 @@ jobs:
         run: |
           curl -O https://nasext-vaader.insa-rennes.fr/ietr-vaader/moseiik_test_images.zip
           unzip moseiik_test_images.zip
-          mv -r images tests/tiles          
+          mv images tests/tiles          
 
       - name: Run tests
         run: |
