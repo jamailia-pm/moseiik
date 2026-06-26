@@ -56,5 +56,5 @@ jobs:
 
       - name: Run tests
         run: |
-          cd moseiik
-          cargo test --release
+          docker build -t localtest .
+          docker run localtest
