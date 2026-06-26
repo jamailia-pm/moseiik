@@ -1,0 +1,52 @@
+name: moseiik robustness guaranty
+on:
+  push
+
+jobs:
+  test-x86:
+    runs-on:  ubuntu-latest
+    steps:
+      - name: Checking architecture
+        uses: actions/checkout@master
+        run : |
+          ARCH=$(uname -m)
+          echo "Architecture: $ARCH"
+          
+          if [ "$ARCH" != "x86_64" ]; then
+          echo "Error: This job only supports x86_64"
+          exit 1
+          fi            
+
+      - name: Fetching project
+        run: git clone https://github.com/jamailia-pm/moseiik.git
+
+      - name: Running tests
+        run: |
+          sudo docker build -t localtest .
+          sudo docker run localtest
+
+
+
+test-arm:
+  runs-on: ubuntu-24.04-arm
+  steps:
+    - name: Checking architecture
+      uses: actions/checkout@master
+      run: |
+        ARCH=$(uname -m)
+        echo "Architecture: $ARCH"
+        
+        if [ "$ARCH" != "arm" ]; then
+        echo "Error: This job only supports arm"
+        exit 1
+        fi
+
+
+    - name: Download image bank
+      run: |
+        dir
+        git clone https://github.com/jamailia-pm/sobel_morpho.git
+        dir
+
+    - name: Running tests
+      run: cargo test --release
